@@ -1,4 +1,7 @@
 from django.shortcuts import render
+
+
+
 from django.http import HttpResponse
 
 def players(request):
@@ -6,3 +9,4 @@ def players(request):
 
 def player(request, pk):
     return HttpResponse('Here are out player' + ' ' + str(pk))
+
