@@ -1,12 +1,9 @@
 from django.shortcuts import render
-
-
-
 from django.http import HttpResponse
 
 def players(request):
-    return HttpResponse('Here are out players')
+    return render(request, 'first_project/projects.html')
 
 def player(request, pk):
-    return HttpResponse('Here are out player' + ' ' + str(pk))
+    return render(request, 'first_project/single-project.html')
 
