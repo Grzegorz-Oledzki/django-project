@@ -17,7 +17,7 @@
 
 <ul>
     {% for player in players %}
-        <li>Name: <a href="/player/{{player.id}}">{{player.name}}</a> --- {{player.description}}</li>
+        <li>Name: <a href="{% url 'player' player.id %}">{{player.name}}</a> --- {{player.description}}</li>
 
     {% endfor %}
 </ul>
