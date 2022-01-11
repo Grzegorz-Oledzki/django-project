@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Player, Review, Tag
+from .models import Player, Rating, Positon
 
 admin.site.register(Player)
-admin.site.register(Tag)
-admin.site.register(Review)
-
+admin.site.register(Positon)
+admin.site.register(Rating)

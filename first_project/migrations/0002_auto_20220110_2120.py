@@ -8,41 +8,71 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('first_project', '0001_initial'),
+        ("first_project", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('name', models.CharField(max_length=200)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
+                ("name", models.CharField(max_length=200)),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                        unique=True,
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='player',
-            name='vote_ratio',
+            model_name="player",
+            name="vote_ratio",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
         migrations.AddField(
-            model_name='player',
-            name='vote_total',
+            model_name="player",
+            name="vote_total",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
         migrations.CreateModel(
-            name='Review',
+            name="Review",
             fields=[
-                ('body', models.TextField(blank=True, null=True)),
-                ('value', models.CharField(choices=[('up', 'Up Vote'), ('down', 'Down vote')], max_length=200)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
-                ('project', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='first_project.player')),
+                ("body", models.TextField(blank=True, null=True)),
+                (
+                    "value",
+                    models.CharField(
+                        choices=[("up", "Up Vote"), ("down", "Down vote")],
+                        max_length=200,
+                    ),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                        unique=True,
+                    ),
+                ),
+                (
+                    "project",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="first_project.player",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='player',
-            name='tags',
-            field=models.ManyToManyField(blank=True, to='first_project.Tag'),
+            model_name="player",
+            name="tags",
+            field=models.ManyToManyField(blank=True, to="first_project.Tag"),
         ),
     ]

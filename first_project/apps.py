@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class FirstProjectConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'first_project'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "first_project"
