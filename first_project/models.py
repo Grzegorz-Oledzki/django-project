@@ -19,7 +19,7 @@ class Player(models.Model):
         return self.title
 
 
-class Rating(models.Model):
+class Review(models.Model):
     VOTE_TYPE = (
         ("up", "Up Vote"),
         ("down", "Down vote"),
@@ -37,7 +37,7 @@ class Rating(models.Model):
         return self.value
 
 
-class Positon(models.Model):
+class Tag(models.Model):
     name = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(
