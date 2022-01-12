@@ -1,25 +1,25 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<p> Hello, you are on the {{page}} page </p>
-
-{% if number > 10 %}
-    <p> number is gather than 10</p>
-
-{% elif number == 10 %}
-    <p> number is 10</p>
-
-{% else %}
-    <p> number is smaller than 10</p>
-{% endif %}
-
 <h1>Projects</h1>
-
-<ul>
-    {% for player in players %}
-        <li>Name: <a href="{% url 'player' player.id %}">{{player.name}}</a> --- {{player.description}}</li>
-
-    {% endfor %}
-</ul>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Project</th>
+        <th>Positive votes</th>
+        <th>Ratio</th>
+        <th></th>
+        {% for player in players %}
+            <tr>
+                <td> {{player.id}}</td>
+                <td> {{player.title}}</td>
+                <td> {{player.vote_ratio}}%</td>
+                <td> {{player.vote_total}}</td>
+                <td> {{player.created}}</td>
+                <td><a href="{% url 'player' player.id %}">View</a>
+            <tr>
+        {% endfor %}
+    </tr>
+</table>
 
 {% endblock content %}
