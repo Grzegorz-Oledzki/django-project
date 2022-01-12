@@ -25,6 +25,7 @@ class Review(models.Model):
         ("down", "Down vote"),
     )
     # owner =
+
     project = models.ForeignKey(Player, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     value = models.CharField(max_length=200, choices=VOTE_TYPE)
