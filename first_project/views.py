@@ -17,6 +17,4 @@ def players(request):
 
 def player(request, pk):
     playerObj = Player.objects.get(id=pk)
-    tags = playerObj.tags.all()
-    print('playerObj:', playerObj)
-    return render(request, "first_project/single-project.html", {"player": playerObj, 'tags': tags})
+    return render(request, "first_project/single-project.html", {"player": playerObj})

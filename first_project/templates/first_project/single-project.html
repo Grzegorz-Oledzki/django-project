@@ -3,7 +3,7 @@
 {% block content %}
 <h1> {{player.title}}</h1>
 <hr>
-{% for tag in tags %}
+{% for tag in player.tags.all %}
     <span style="border:1px solid grey"> {{tag}}</span>
 {% endfor %}
 </hr>
