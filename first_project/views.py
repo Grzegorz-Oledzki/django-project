@@ -4,6 +4,7 @@ from .models import Player
 
 
 
+
 def players(request):
     players = Player.objects.all()
     context = {"players": players}
@@ -13,3 +14,7 @@ def players(request):
 def player(request, pk):
     playerObj = Player.objects.get(id=pk)
     return render(request, "first_project/single-project.html", {"player": playerObj})
+
+def CreatePlayer(request):
+    context = {}
+    return render(request, "first_project/project_form.html", context)
