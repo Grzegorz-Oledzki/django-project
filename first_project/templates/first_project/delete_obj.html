@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-{% extends 'main.html %}
+{% extends 'main.html' %}
 {% block content %}
-    <form>
+    <form action="" method="POST">
+        {% csrf_token %}
         <p>Are you want to delete player "{{object}}"?</p>
-        <a href="{% url 'projects' %}">
-        <button>Back to main<</button></a>
-        <input type="submit" value="Confirm">
+        <button><a href="{% url 'players' %}">Back to main</a></button>
+        <input type="submit" value="Confirm" />
     </form>
 {% endblock %}
 </head>
