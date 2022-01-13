@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{% extends 'main.html %}
+{% block content %}
+    <form>
+        <p>Are you want to delete player "{{object}}"?</p>
+        <a href="{% url 'projects' %}">
+        <button>Back to main<</button></a>
+        <input type="submit" value="Confirm">
+    </form>
+{% endblock %}
+</head>
+<body>
+
+</body>
+</html>
