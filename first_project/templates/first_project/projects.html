@@ -4,19 +4,19 @@
 <h1>Projects</h1>
 <table>
     <tr>
-        <th>ID</th>
         <th>Project</th>
         <th>Positive votes</th>
         <th>Ratio</th>
         <th></th>
         {% for player in players %}
             <tr>
-                <td> {{player.id}}</td>
                 <td> {{player.title}}</td>
                 <td> {{player.vote_ratio}}%</td>
                 <td> {{player.vote_total}}</td>
                 <td> {{player.created}}</td>
-                <td><a href="{% url 'player' player.id %}">View</a>
+                <td><a href="{% url 'player' player.id %}">View</a></td>
+                <td><a href="{% url 'update-player' player.id %}">Update</a></td>
+                <td><a href="{% url 'delete-player' player.id %}">Delete</a></td>
             <tr>
         {% endfor %}
     </tr>

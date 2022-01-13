@@ -4,19 +4,12 @@
 <head>
 {% block content %}
     <title>Project_form</title>
-    <form method="=POST">
+    <form action="" method="POST">
         {% csrf_token %}
-
+        {{form.as_p}}
         <input type="submit">
-
     </form>
-
-
-
-
-
-
-{% endblock content %}
+{% endblock %}
 </head>
 <body>
 

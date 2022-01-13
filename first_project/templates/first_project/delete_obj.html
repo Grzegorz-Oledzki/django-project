@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{% extends 'main.html' %}
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p>Are you want to delete player "{{object}}"?</p>
+        <button><a href="{% url 'players' %}">Back to main</a></button>
+        <input type="submit" value="Confirm" />
+    </form>
+{% endblock %}
+</head>
+<body>
+
+</body>
+</html>
