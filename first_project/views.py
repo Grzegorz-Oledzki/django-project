@@ -2,11 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Player
 
-projectsList = [
-    {"id": "1", "name": "Edin Dzeko", "description": "Tall striker"},
-    {"id": "2", "name": "Lautaro Martinez", "description": "Effective striker"},
-    {"id": "3", "name": "Nicolo Barella", "description": "Clever midfielder"},
-]
 
 
 def players(request):
