@@ -4,4 +4,4 @@ from .models import Player
 class PlayerForm(ModelForm):
     class Meta:
         model = Player
-        fields = '__all__'
+        fields = ['title', 'description', 'demo_link', 'source_link', 'tags']

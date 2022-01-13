@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Player
 from .forms import PlayerForm
@@ -18,5 +18,11 @@ def player(request, pk):
 
 def CreatePlayer(request):
     form = PlayerForm()
+
+    if request.method == 'POST':
+        form = PlayerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('players')
     context = {'form': form}
     return render(request, "first_project/project_form.html", context)
