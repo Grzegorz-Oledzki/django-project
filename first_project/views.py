@@ -15,6 +15,6 @@ def player(request, pk):
     playerObj = Player.objects.get(id=pk)
     return render(request, "first_project/single-project.html", {"player": playerObj})
 
-def CreatePlayer(request):
+def CreateTeam(request):
     context = {}
     return render(request, "first_project/project_form.html", context)
