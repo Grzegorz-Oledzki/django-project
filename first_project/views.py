@@ -19,7 +19,7 @@ def createPlayer(request):
     form = PlayerForm()
 
     if request.method == "POST":
-        form = PlayerForm(request.POST)
+        form = PlayerForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect("players")
@@ -33,7 +33,7 @@ def updatePlayer(request, pk):
     form = PlayerForm(instance=player)
 
     if request.method == "POST":
-        form = PlayerForm(request.POST, instance=player)
+        form = PlayerForm(request.POST, request.FILES, instance=player)
         if form.is_valid():
             form.save()
             return redirect("players")
