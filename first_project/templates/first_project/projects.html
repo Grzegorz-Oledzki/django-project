@@ -1,18 +1,6 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<table>
-        {% for player in players %}
-            <tr>
-
-                <td><a href="{% url 'player' player.id %}">View</a></td>
-                <td><a href="{% url 'update-player' player.id %}">Update</a></td>
-                <td><a href="{% url 'delete-player' player.id %}">Delete</a></td>
-            <tr>
-        {% endfor %}
-    </tr>
-</table>
-
   <!-- Main Section -->
   <main class="projects">
     <section class="hero-section text-center">
@@ -45,15 +33,16 @@
                 <img class="project__thumbnail" style='max-width:250px;' src="{{player.featured_image.url}}" alt="project thumbnail" />
                 <div class="card__body">
                   <h3 class="project__title">{{player.title}}</h3>
-                  <p><a class="project__author" href="{% url 'player' player.id %}">View</a></p>
+                  <p><a class="project__author" href="{% url 'update-player' player.id %}">Update</a>
+                  <a class="project__author" href="{% url 'delete-player' player.id %}">Delete</a></p>
                   <p class="project--rating">
                     <span style="font-weight: bold;">{{player.vote_ratio}}%</span> Positive
-                    Feedback {{player.vote_total}} Votes
+                    Feedback {{ player.vote_total }} Vote{{player.vote_total|pluralize:"s"}}
                   </p>
                   <div class="project__tags">
                     <span class="tag tag--pill tag--main">
                      {% for tag in player.tags.all %}
-                      {{tag}}
+                      <small>{{tag}}</small>
                       {% endfor %}
                     </span>
                   </div>
