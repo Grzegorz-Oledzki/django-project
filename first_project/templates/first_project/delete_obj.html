@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+
 {% extends 'main.html' %}
 {% block content %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        <p>Are you want to delete player "{{object}}"?</p>
-        <button><a href="{% url 'players' %}">Back to main</a></button>
-        <input type="submit" value="Confirm" />
-    </form>
+    <main class="formPage my-xl">
+        <div class="content-box">
+            <div class="formWrapper">
+                <br>
+                <form class="form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h2>Are you want to delete player "{{player}}"?</h2>
+                    <a class="btn btn--sub btn--lg  my-md" href="{% url 'players' %}">Back to main</a>
+                    <a class="btn btn--sub btn--lg  my-md" href="{% url 'update-player' player.id %}">Update</a>
+                    <input class="btn btn--sub btn--lg  my-md" type="submit" value="Yes" />
+                </form>
 {% endblock %}
-</head>
-<body>
-
-</body>
-</html>
