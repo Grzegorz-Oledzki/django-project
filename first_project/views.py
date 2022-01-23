@@ -44,7 +44,7 @@ def updatePlayer(request, pk):
 
 def deletePlayer(request, pk):
     player = Player.objects.get(id=pk)
-    context = {"object": player}
+    context = {"player": player}
     if request.method == "POST":
         player.delete()
         return redirect("players")
