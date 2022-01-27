@@ -4,5 +4,5 @@ from .models import Profile, Skill
 
 def profiles(request):
     profiles = Profile.objects.all()
-    context = {'profiles': profiles}
+    context = {"profiles": profiles}
     return render(request, "users/profiles.html", context)
