@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 
-#@receiver(post_save, sender=Profile)
+# @receiver(post_save, sender=Profile)
 def createProfile(sender, instance, created, **kwargs):
     if created:
         user = instance
