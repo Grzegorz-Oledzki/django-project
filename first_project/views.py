@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Player
 from .forms import PlayerForm
+from django.contrib.auth.decorators import login_required
+
 
 
 def players(request):
@@ -14,7 +16,7 @@ def player(request, pk):
     playerObj = Player.objects.get(id=pk)
     return render(request, "first_project/single-project.html", {"player": playerObj})
 
-
+@login_required(login_url='login')
 def createPlayer(request):
     form = PlayerForm()
 
@@ -27,7 +29,7 @@ def createPlayer(request):
     context = {"form": form}
     return render(request, "first_project/project_form.html", context)
 
-
+@login_required(login_url='login')
 def updatePlayer(request, pk):
     player = Player.objects.get(id=pk)
     form = PlayerForm(instance=player)
@@ -41,7 +43,7 @@ def updatePlayer(request, pk):
     context = {"form": form}
     return render(request, "first_project/project_form.html", context)
 
-
+@login_required(login_url='login')
 def deletePlayer(request, pk):
     player = Player.objects.get(id=pk)
     context = {"player": player}
