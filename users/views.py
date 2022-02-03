@@ -4,6 +4,10 @@ from .models import Profile, Skill
 from django.contrib.auth.models import User
 
 def loginUser(request):
+
+    if request.user.is_authenticated:
+        return redirect('profiles')
+
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
