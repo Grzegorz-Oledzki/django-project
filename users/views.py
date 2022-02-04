@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from .models import Profile, Skill
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
+from .forms import CustomUserCreationForm
 
 
 def loginUser(request):
@@ -40,14 +40,20 @@ def logoutUser(request):
 
 def registerUser(request):
     page = "register"
-    form = UserCreationForm
+    form = CustomUserCreationForm()
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
             messages.success(request, "User registered!")
+
+            login(request, user)
+            return redirect("profiles")
+
+        else:
+            messages.error(request, "Error! User not registered")
 
     context = {"page": page, "form": form}
     return render(request, "users/login_register.html", context)
