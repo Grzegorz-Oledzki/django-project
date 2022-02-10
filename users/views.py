@@ -85,3 +85,9 @@ def userAccount(request):
     players = profile.player_set.all()
     context = {"profile": profile, "skills": skills, "players": players}
     return render(request, "users/account.html", context)
+
+
+@login_required(login_url="login")
+def editAccount(request):
+    context = {}
+    return render(request, 'users/profile_form.html', context)
