@@ -4,6 +4,7 @@ from .models import Profile, Skill
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import CustomUserCreationForm
+from django.contrib.auth.decorators import login_required
 
 
 def loginUser(request):
@@ -76,6 +77,10 @@ def userProfile(request, pk):
     }
     return render(request, "users/user-profile.html", context)
 
+@login_required(login_url='login')
 def userAccount(request):
-    context = {}
+    profile = request.user.profile
+    skills = profile.skill_set.all()
+    players = profile.player_set.all()
+    context = {'profile': profile, "skills": skills, 'players': players}
     return render(request, 'users/account.html', context)
