@@ -19,11 +19,13 @@ def player(request, pk):
 @login_required(login_url="login")
 def createPlayer(request):
     form = PlayerForm()
-
+    profile = request.user.profile
     if request.method == "POST":
         form = PlayerForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            player = form.save(commit=False)
+            player.owner = profile
+            player.save()
             return redirect("players")
 
     context = {"form": form}
@@ -32,7 +34,8 @@ def createPlayer(request):
 
 @login_required(login_url="login")
 def updatePlayer(request, pk):
-    player = Player.objects.get(id=pk)
+    profile = request.user.profile
+    player = profile.project_set.get(id=pk)
     form = PlayerForm(instance=player)
 
     if request.method == "POST":
