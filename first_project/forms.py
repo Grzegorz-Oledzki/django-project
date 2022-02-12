@@ -13,7 +13,6 @@ class PlayerForm(ModelForm):
             "source_link",
             "tags",
             "featured_image",
-            "owner",
         ]
         widgets = {
             "tags": forms.CheckboxSelectMultiple(),
