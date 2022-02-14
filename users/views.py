@@ -115,3 +115,26 @@ def createSkill(request):
     context = {"form": form}
     return render(request, "users/skill_form.html", context)
 
+
+@login_required(login_url="login")
+def updateSkill(request, pk):
+    profile = request.user.profile
+    skill = profile.skill_set.get(id=pk)
+    form = SkillForm(instance=skill)
+    if request.method == "POST":
+        form = SkillForm(request.POST, instance=skill)
+        if form.is_valid():
+            form.save()
+            return redirect("account")
+    context = {"form": form}
+    return render(request, "users/skill_form.html", context)
+
+@login_required(login_url="login")
+def deleteSkill(request, pk):
+    skill = Skill.objects.get(id=pk)
+    context = {"skill": skill}
+    if request.method == "POST":
+        skill.delete()
+        return redirect("account")
+    return render(request, "users/delete_skill.html", context)
+
