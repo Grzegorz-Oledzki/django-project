@@ -132,6 +132,7 @@ def updateSkill(request, pk):
     context = {"form": form}
     return render(request, "users/skill_form.html", context)
 
+
 @login_required(login_url="login")
 def deleteSkill(request, pk):
     skill = Skill.objects.get(id=pk)
@@ -140,4 +141,3 @@ def deleteSkill(request, pk):
         skill.delete()
         return redirect("account")
     return render(request, "users/delete_skill.html", context)
-
