@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+{% block content %}
+<h1>Create skill</h1>
+    <form class="form" method="POST" action="">
+        {% csrf_token %}
+            {% for field in form %}
+            <div class="form__field">
+                    <label for="formInput#text">{{field.label}}</label>
+                {{field}}
+                {% endfor %}
+                <input type="submit" value="Submit"/>
+    </form>
+
+
+{% endblock content %}
