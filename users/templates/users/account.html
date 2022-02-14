@@ -60,9 +60,9 @@
               </p>
             </td>
             <td class="settings__tableActions">
-              <a class="tag tag--pill tag--main settings__btn" href="#"><i
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'update-skill' skill.id %}"><i
                   class="im im-edit"></i> Edit</a>
-              <a class="tag tag--pill tag--main settings__btn" href="#"><i
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'delete-skill' skill.id %}"><i
                   class="im im-x-mark-circle-o"></i>
                 Delete</a>
             </td>
@@ -72,7 +72,7 @@
 
           <div class="settings">
             <h3 class="settings__title">Players</h3>
-            <a class="tag tag--pill tag--sub settings__btn tag--lg" href="{% url 'create-player' %}"><i class="im im-plus"></i> Add Project</a>
+            <a class="tag tag--pill tag--sub settings__btn tag--lg" href="{% url 'create-player' %}"><i class="im im-plus"></i> Add Player</a>
           </div>
           {% for player in players %}
           <table class="settings__table">
@@ -87,7 +87,7 @@
               </td>
 
               <td class="settings__tableActions">
-                <a class="tag tag--pill tag--main settings__btn" href="{%url 'update-player' player.id %}"><i class="im im-edit"></i> Edit</a>
+                <a class="tag tag--pill tag--main settings__btn" href="{% url 'update-player' player.id %}"><i class="im im-edit"></i> Edit</a>
                 <a class="tag tag--pill tag--main settings__btn" href="{% url 'delete-player' player.id %}"><i class="im im-x-mark-circle-o"></i>
                   Delete</a>
               </td>
