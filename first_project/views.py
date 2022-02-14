@@ -35,7 +35,7 @@ def createPlayer(request):
 @login_required(login_url="login")
 def updatePlayer(request, pk):
     profile = request.user.profile
-    player = profile.player_set.get(id=pk)
+    player = profile.project_set.get(id=pk)
     form = PlayerForm(instance=player)
 
     if request.method == "POST":
