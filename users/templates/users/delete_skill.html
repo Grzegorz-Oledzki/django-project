@@ -7,7 +7,7 @@
                 <form class="form" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <h2>Are you want to delete skill "{{skill}}"?</h2>
-                    <a class="btn btn--sub btn--lg  my-md" href="{% url 'account' %}">Back to account</a>
+                    <a class="btn btn--sub btn--lg  my-md" href="{{request.GET.next}}">Back to account</a>
                     <input class="btn btn--sub btn--lg  my-md" type="submit" value="Yes" />
                 </form>
 {% endblock %}
