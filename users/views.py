@@ -135,9 +135,10 @@ def updateSkill(request, pk):
 
 @login_required(login_url="login")
 def deleteSkill(request, pk):
-    skill = Skill.objects.get(id=pk)
-    context = {"skill": skill}
+    profile = request.user.profile
+    skill = profile.skill_set.get(id=pk)
     if request.method == "POST":
         skill.delete()
         return redirect("account")
+    context = {"object": skill}
     return render(request, "users/delete_skill.html", context)
