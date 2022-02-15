@@ -127,7 +127,7 @@ def updateSkill(request, pk):
         form = SkillForm(request.POST, instance=skill)
         if form.is_valid():
             form.save()
-
+            messages.success(request, "Skill updated")
             return redirect("account")
     context = {"form": form}
     return render(request, "users/skill_form.html", context)
