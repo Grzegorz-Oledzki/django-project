@@ -26,7 +26,7 @@ def createPlayer(request):
             player = form.save(commit=False)
             player.owner = profile
             player.save()
-            return redirect("players")
+            return redirect("account")
 
     context = {"form": form}
     return render(request, "first_project/project_form.html", context)
@@ -42,7 +42,7 @@ def updatePlayer(request, pk):
         form = PlayerForm(request.POST, request.FILES, instance=player)
         if form.is_valid():
             form.save()
-            return redirect("players")
+            return redirect("account")
 
     context = {"form": form}
     return render(request, "first_project/project_form.html", context)
@@ -54,5 +54,5 @@ def deletePlayer(request, pk):
     context = {"player": player}
     if request.method == "POST":
         player.delete()
-        return redirect("players")
+        return redirect("account")
     return render(request, "first_project/delete_obj.html", context)
