@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from .models import Profile, Skill
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.db.models import Q
 from .models import Profile
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
 from django.contrib.auth.decorators import login_required
@@ -68,7 +69,7 @@ def profiles(request):
 
     print("SEARCH:", search_query)
 
-    profiles = Profile.objects.filter(name__icontains=search_query)
+    profiles = Profile.objects.filter(Q(name__icontains=search_query))
     context = {"profiles": profiles}
     return render(request, "users/profiles.html", context)
 
