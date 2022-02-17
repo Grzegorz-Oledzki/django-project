@@ -50,7 +50,6 @@ def registerUser(request):
             user.username = user.username.lower()
             user.save()
             messages.success(request, "User registered!")
-
             login(request, user)
             return redirect("edit-account")
 
@@ -69,7 +68,9 @@ def profiles(request):
 
     print("SEARCH:", search_query)
 
-    profiles = Profile.objects.filter(Q(name__icontains=search_query))
+    profiles = Profile.objects.filter(
+        Q(name__icontains=search_query),
+    )
     context = {"profiles": profiles}
     return render(request, "users/profiles.html", context)
 
