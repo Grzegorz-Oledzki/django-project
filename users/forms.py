@@ -20,7 +20,7 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = {
+        fields = [
             "name",
             "username",
             "email",
@@ -33,7 +33,7 @@ class ProfileForm(ModelForm):
             "social_linkedin",
             "social_youtube",
             "social_website",
-        }
+        ]
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
