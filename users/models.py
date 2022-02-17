@@ -9,7 +9,7 @@ class Profile(models.Model):
     username = models.CharField(max_length=100, blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True)
-    short_intro = models.CharField(max_length=250, blank=True)
+    short_intro = models.CharField(max_length=250, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     profile_image = models.ImageField(
         null=True,
