@@ -1,13 +1,23 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Player
+from .models import Player, Tag
+from django.db.models import Q
 from .forms import PlayerForm
 from django.contrib.auth.decorators import login_required
 
 
 def players(request):
-    players = Player.objects.all()
-    context = {"players": players}
+    search_query = ""
+
+    if request.GET.get("search_query"):
+        search_query = request.GET.get("search_query")
+    players = Player.objects.filter(
+        Q(title__icontains=search_query)
+        | Q(description__icontains=search_query)
+        | Q(owner__name__icontains=search_query)
+    )
+    tags = Tag.objects.filter(Q(name__icontains=search_query))
+    context = {"players": players, 'search_query': search_query, 'tags': tags}
     return render(request, "first_project/projects.html", context)
 
 
