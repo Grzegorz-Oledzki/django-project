@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def players(request):
+    profile = request.user.profile
     search_query = ""
-
     if request.GET.get("search_query"):
         search_query = request.GET.get("search_query")
     players = Player.objects.filter(
@@ -17,7 +17,12 @@ def players(request):
         | Q(owner__name__icontains=search_query)
     )
     tags = Tag.objects.filter(Q(name__icontains=search_query))
-    context = {"players": players, 'search_query': search_query, 'tags': tags}
+    context = {
+        "players": players,
+        "search_query": search_query,
+        "tags": tags,
+        "profile": profile,
+    }
     return render(request, "first_project/projects.html", context)
 
 
