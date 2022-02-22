@@ -4,23 +4,16 @@ from .models import Player, Tag
 from django.db.models import Q
 from .forms import PlayerForm
 from django.contrib.auth.decorators import login_required
+from .utils import searchPlayers
 
 
 def players(request):
+    players, search_query = searchPlayers(request)
     profile = request.user.profile
-    search_query = ""
-    if request.GET.get("search_query"):
-        search_query = request.GET.get("search_query")
-    players = Player.objects.filter(
-        Q(title__icontains=search_query)
-        | Q(description__icontains=search_query)
-        | Q(owner__name__icontains=search_query)
-    )
-    tags = Tag.objects.filter(Q(name__icontains=search_query))
+
     context = {
         "players": players,
         "search_query": search_query,
-        "tags": tags,
         "profile": profile,
     }
     return render(request, "first_project/projects.html", context)
