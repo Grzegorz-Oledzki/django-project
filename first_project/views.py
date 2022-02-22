@@ -10,7 +10,6 @@ from .utils import searchPlayers
 def players(request):
     players, search_query = searchPlayers(request)
     profile = request.user.profile
-
     context = {
         "players": players,
         "search_query": search_query,
