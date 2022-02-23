@@ -29,7 +29,7 @@
             {% for player in players %}
           <div class="column">
             <div class="card project">
-              <a href="{% url 'players' player.id %}" class="project">
+              <a href="{% url 'player' player.id %}" class="project">
                 <img class="project__thumbnail" style='max-width:250px;' src="{{player.featured_image.url}}" alt="project thumbnail" />
                 <div class="card__body">
                   <h3 class="project__title">{{player.title}}</h3>
