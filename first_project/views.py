@@ -5,15 +5,30 @@ from django.db.models import Q
 from .forms import PlayerForm
 from django.contrib.auth.decorators import login_required
 from .utils import searchPlayers
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def players(request):
     players, search_query = searchPlayers(request)
+    page = request.GET.get('page')
+    results = 3
+    paginator = Paginator(players, results)
     profile = request.user.profile
+
+    try:
+        players = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        players = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        players = paginator.page(page)
+
     context = {
         "players": players,
         "search_query": search_query,
         "profile": profile,
+        'paginator': paginator
     }
     return render(request, "first_project/projects.html", context)
 
