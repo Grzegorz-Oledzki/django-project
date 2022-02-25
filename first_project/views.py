@@ -11,7 +11,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 def players(request):
     players, search_query = searchPlayers(request)
     page = request.GET.get('page')
-    results = 3
+    results = 4
     paginator = Paginator(players, results)
     profile = request.user.profile
 
@@ -24,11 +24,22 @@ def players(request):
         page = paginator.num_pages
         players = paginator.page(page)
 
+    leftIndex = (int(page) - 3)
+    if leftIndex < 1:
+        leftIndex = 1
+
+    rightIndex = (int(page) + 4)
+    if rightIndex > paginator.num_pages:
+        rightIndex = paginator.num_pages
+
+    custom_range = range(leftIndex, rightIndex)
+
     context = {
         "players": players,
         "search_query": search_query,
         "profile": profile,
-        'paginator': paginator
+        'paginator': paginator,
+        'custom_range': custom_range,
     }
     return render(request, "first_project/projects.html", context)
 
