@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Player
+from first_project.models import Player
 from django import forms
 
 
