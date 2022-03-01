@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Player, Tag
+from first_project.models import Player, Tag
 from django.db.models import Q
-from .forms import PlayerForm
+from first_project.forms import PlayerForm
 from django.contrib.auth.decorators import login_required
-from .utils import searchPlayers
+from first_project.utils import searchPlayers
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
