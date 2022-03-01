@@ -3,7 +3,6 @@ from users.models import Profile
 import uuid
 
 
-
 class Player(models.Model):
     owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=200)
@@ -23,7 +22,7 @@ class Player(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['created']
+        ordering = ["created"]
 
 
 class Review(models.Model):
