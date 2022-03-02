@@ -28,7 +28,7 @@ def player(request, pk):
 
 
 @login_required(login_url="login")
-def createPlayer(request):
+def create_player(request):
     form = PlayerForm()
     profile = request.user.profile
     if request.method == "POST":
@@ -44,7 +44,7 @@ def createPlayer(request):
 
 
 @login_required(login_url="login")
-def updatePlayer(request, pk):
+def update_player(request, pk):
     profile = request.user.profile
     player = profile.player_set.get(id=pk)
     form = PlayerForm(instance=player)
@@ -60,7 +60,7 @@ def updatePlayer(request, pk):
 
 
 @login_required(login_url="login")
-def deletePlayer(request, pk):
+def delete_player(request, pk):
     player = Player.objects.get(id=pk)
     context = {"player": player}
     if request.method == "POST":

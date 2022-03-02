@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from users.utils import searchProfiles
 
 
-def loginUser(request):
+def login_user(request):
     if request.user.is_authenticated:
         return redirect("profiles")
 
@@ -33,13 +33,13 @@ def loginUser(request):
     return render(request, "users/login_register.html")
 
 
-def logoutUser(request):
+def logout_user(request):
     logout(request)
     messages.success(request, "User logout!")
     return redirect("login")
 
 
-def registerUser(request):
+def register_user(request):
     page = "register"
     form = CustomUserCreationForm()
     if request.method == "POST":
@@ -65,7 +65,7 @@ def profiles(request):
     return render(request, "users/profiles.html", context)
 
 
-def userProfile(request, pk):
+def user_profile(request, pk):
     profile = Profile.objects.get(id=pk)
     top_skills = profile.skill_set.exclude(description__exact="")
     other_skills = profile.skill_set.filter(description="")
@@ -78,7 +78,7 @@ def userProfile(request, pk):
 
 
 @login_required(login_url="login")
-def userAccount(request):
+def user_account(request):
     profile = request.user.profile
     skills = profile.skill_set.all()
     players = profile.player_set.all()
@@ -87,7 +87,7 @@ def userAccount(request):
 
 
 @login_required(login_url="login")
-def editAccount(request):
+def edit_account(request):
     profile = request.user.profile
     form = ProfileForm(instance=profile)
     if request.method == "POST":
@@ -102,7 +102,7 @@ def editAccount(request):
 
 
 @login_required(login_url="login")
-def createSkill(request):
+def create_skill(request):
     profile = request.user.profile
     form = SkillForm()
     if request.method == "POST":
@@ -118,7 +118,7 @@ def createSkill(request):
 
 
 @login_required(login_url="login")
-def updateSkill(request, pk):
+def update_skill(request, pk):
     profile = request.user.profile
     skill = profile.skill_set.get(id=pk)
     form = SkillForm(instance=skill)
@@ -133,7 +133,7 @@ def updateSkill(request, pk):
 
 
 @login_required(login_url="login")
-def deleteSkill(request, pk):
+def delete_skill(request, pk):
     profile = request.user.profile
     skill = profile.skill_set.get(id=pk)
     if request.method == "POST":
