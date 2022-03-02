@@ -16,11 +16,11 @@ def pagination_project(request, players, results_on_page):
         page = paginator.num_pages
         players = paginator.page(page)
 
-    left_index = int(page) - 1
+    left_index = int(page) - 2
     if left_index < 1:
         left_index = 1
 
-    right_index = int(page) + 2
+    right_index = int(page) + 3
     if right_index > paginator.num_pages:
         right_index = paginator.num_pages + 1
 

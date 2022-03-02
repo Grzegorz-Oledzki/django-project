@@ -10,7 +10,7 @@ from first_project.utils import search_players, pagination_project
 def players(request):
     profile = request.user.profile
     players, search_query = search_players(request)
-    results_on_page = 6
+    results_on_page = 3
     custom_range, players = pagination_project(request, players, results_on_page)
 
     context = {
