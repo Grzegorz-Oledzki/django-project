@@ -4,41 +4,19 @@ from first_project.models import Player, Tag
 from django.db.models import Q
 from first_project.forms import PlayerForm
 from django.contrib.auth.decorators import login_required
-from first_project.utils import searchPlayers
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from first_project.utils import search_players, pagination_project
 
 
 def players(request):
-    players, search_query = searchPlayers(request)
-    page = request.GET.get("page")
-    results = 4
-    paginator = Paginator(players, results)
     profile = request.user.profile
-
-    try:
-        players = paginator.page(page)
-    except PageNotAnInteger:
-        page = 1
-        players = paginator.page(page)
-    except EmptyPage:
-        page = paginator.num_pages
-        players = paginator.page(page)
-
-    leftIndex = int(page) - 3
-    if leftIndex < 1:
-        leftIndex = 1
-
-    rightIndex = int(page) + 4
-    if rightIndex > paginator.num_pages:
-        rightIndex = paginator.num_pages
-
-    custom_range = range(leftIndex, rightIndex)
+    players, search_query = search_players(request)
+    results_on_page = 6
+    custom_range, players = pagination_project(request, players, results_on_page)
 
     context = {
         "players": players,
         "search_query": search_query,
         "profile": profile,
-        "paginator": paginator,
         "custom_range": custom_range,
     }
     return render(request, "first_project/projects.html", context)
