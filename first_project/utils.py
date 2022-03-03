@@ -28,6 +28,7 @@ def pagination_project(request, players, results_on_page):
 
     return custom_range, players
 
+
 def search_players(request):
     search_query = ""
     if request.GET.get("search_query"):
