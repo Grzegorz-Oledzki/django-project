@@ -63,7 +63,11 @@ def profiles(request):
     profiles, search_query = search_profiles(request)
     results_on_page = 6
     custom_range, profiles = pagination_project(request, profiles, results_on_page)
-    context = {"profiles": profiles, "custom_range": custom_range}
+    context = {
+        "profiles": profiles,
+        "custom_range": custom_range,
+        "search_query": search_query,
+    }
     return render(request, "users/profiles.html", context)
 
 
