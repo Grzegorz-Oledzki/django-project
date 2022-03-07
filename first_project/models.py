@@ -40,7 +40,7 @@ class Review(models.Model):
     )
 
     class Meta:
-        unique_together = [['owner', 'project']]
+        unique_together = [["owner", "project"]]
 
     def __str__(self):
         return self.value
