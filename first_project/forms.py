@@ -31,9 +31,9 @@ class PlayerForm(ModelForm):
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields = ['vote', 'body']
+        fields = ['value', 'body']
         labels = {
-            'vote': 'Place your vote',
+            'value': 'Place your vote',
             'body': 'Add a comment with your vote'
         }
 
