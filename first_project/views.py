@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from first_project.models import Player, Tag
+from first_project.models import Player, Tag, Review
 from django.db.models import Q
-from first_project.forms import PlayerForm
+from first_project.forms import PlayerForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 from first_project.utils import search_players, pagination_project
+from django.contrib import messages
 
 
 def players(request):
@@ -24,7 +25,16 @@ def players(request):
 
 def player(request, pk):
     playerObj = Player.objects.get(id=pk)
-    return render(request, "first_project/single-project.html", {"player": playerObj})
+    form = ReviewForm()
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        review = form.save(commit=False)
+        review.player = playerObj
+        review.owner = request.user.profile
+        review.save()
+        messages.success(request, 'Review added!')
+
+    return render(request, "first_project/single-project.html", {"player": playerObj, 'form': form})
 
 
 @login_required(login_url="login")
