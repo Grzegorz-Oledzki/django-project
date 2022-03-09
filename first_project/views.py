@@ -32,9 +32,13 @@ def player(request, pk):
         review.player = playerObj
         review.owner = request.user.profile
         review.save()
-        messages.success(request, 'Review added!')
+        messages.success(request, "Review added!")
 
-    return render(request, "first_project/single-project.html", {"player": playerObj, 'form': form})
+    return render(
+        request,
+        "first_project/single-project.html",
+        {"player": playerObj, "form": form},
+    )
 
 
 @login_required(login_url="login")
