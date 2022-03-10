@@ -7,9 +7,7 @@ from django.contrib.auth.decorators import login_required
 from first_project.utils import search_players, pagination_project
 from django.contrib import messages
 
-@login_required(login_url="login")
 def players(request):
-    profile = request.user.profile
     players, search_query = search_players(request)
     results_on_page = 3
     custom_range, players = pagination_project(request, players, results_on_page)
@@ -17,7 +15,6 @@ def players(request):
     context = {
         "players": players,
         "search_query": search_query,
-        "profile": profile,
         "custom_range": custom_range,
     }
     return render(request, "first_project/projects.html", context)
