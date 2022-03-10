@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from first_project.utils import search_players, pagination_project
 from django.contrib import messages
 
+
 def players(request):
     players, search_query = search_players(request)
     results_on_page = 3
@@ -31,7 +32,7 @@ def player(request, pk):
         review.save()
         playerObj.get_vote_count
         messages.success(request, "Review added!")
-        return redirect('player', pk=playerObj.id)
+        return redirect("player", pk=playerObj.id)
 
     return render(
         request,
