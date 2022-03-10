@@ -22,7 +22,17 @@ class Player(models.Model):
         return self.title
 
     class Meta:
-        ordering = ["created"]
+        ordering = ["-vote_ratio", "-vote_total", "title"]
+    @property
+    def get_vote_count(self):
+        reviews = self.review_set.all()
+        up_votes = reviews.filter(value='up').count()
+        total_votes = reviews.count()
+
+        ratio = (up_votes / total_votes) * 100
+        self.vote_total = total_votes
+        self.vote_ratio = ratio
+        self.save()
 
 
 class Review(models.Model):
