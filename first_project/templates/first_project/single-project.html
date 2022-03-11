@@ -38,7 +38,11 @@
             <h5 class="project--rating">
              {{player.vote_ratio}}% Positive Feedback {{ player.vote_total }} Vote{{player.vote_total|pluralize:"s"}}
             </h5>
-
+            {% if request.user.profile.id in player.reviewers %}
+            <p> You have already submitted your review for this player </p>
+            {% elif request.user.profile == player.owner %}
+            <p> You cannot review your own player </p>
+            {% elif request.user.is_authenticated %}
             <form class="form" action="{% url 'player' player.id %}" method="POST">
               {% csrf_token %}
               {% for field in form %}
@@ -49,6 +53,9 @@
               {% endfor %}
               <input class="btn btn--sub btn--lg" type="submit" value="Comments" />
             </form>
+            {% else %}
+              <a href="{% url 'login' %}?next={{request.path}}"> Login to add review </a>
+            {% endif %}
             <div class="commentList">
               {% for review in player.review_set.all %}
               {% if review.body %}
