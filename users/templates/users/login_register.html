@@ -46,7 +46,7 @@
 <p> Already do you have an account? <a href="{% url 'login' %}"> Log in </a></p>
 
 {% else %}
-<form action="{% url 'login' %}" method="POST">
+<form action="" method="POST" class="form auth__form">
     {% csrf_token %}
     <div class="auth">
       <div class="card">
@@ -58,7 +58,7 @@
           <p>Welcome Back!</p>
         </div>
 
-        <form action="#" class="form auth__form">
+        <form action="#"  class="form auth__form">
           <!-- Input:Email -->
           <div class="form__field">
             <label for="formInput#text">Username: </label>
