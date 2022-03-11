@@ -26,7 +26,7 @@ class Player(models.Model):
 
     @property
     def reviewers(self):
-        queryset = self.review_set.all().values_list('owner__id', flat=True)
+        queryset = self.review_set.all().values_list("owner__id", flat=True)
         return queryset
 
     @property
