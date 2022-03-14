@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from users.models import Profile, Skill
 from django.contrib.auth.models import User
 from django.contrib import messages
-from users.models import Profile, Skill
+from users.models import Profile, Skill, Message
 from users.forms import CustomUserCreationForm, ProfileForm, SkillForm
 from django.contrib.auth.decorators import login_required
 from users.utils import search_profiles, pagination_project
@@ -151,5 +151,8 @@ def delete_skill(request, pk):
 
 @login_required(login_url="login")
 def inbox(request):
-    context = {}
+    profile = request.user.profile
+    message_request = profile.messages.all()
+    unread_count = message_request.filter(is_read=False).count()
+    context = {"message_request": message_request, "unread_count": unread_count}
     return render(request, 'users/inbox.html', context)
