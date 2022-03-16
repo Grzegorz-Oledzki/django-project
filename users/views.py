@@ -169,6 +169,7 @@ def view_message(request, pk):
     context = {"message": message}
     return render(request, "users/message.html", context)
 
+
 @login_required(login_url="login")
 def send_message(request, pk):
     profile = request.user.profile
