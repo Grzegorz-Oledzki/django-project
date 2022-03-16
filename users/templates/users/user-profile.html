@@ -33,9 +33,8 @@
                   <a title="Personal Website" href="{{profile.social_website}}" target="_blank"><i class="im im-globe"></i></a>
                 </li>
                   {% endif %}
-
               </ul>
-              <a href="#" class="btn btn--sub btn--lg">Send Message </a>
+              <a href="{% url 'send-message' profile.id %}" class="btn btn--sub btn--lg">Send Message </a>
             </div>
           </div>
         </div>
