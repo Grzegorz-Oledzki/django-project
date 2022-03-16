@@ -163,5 +163,8 @@ def inbox(request):
 def view_message(request, pk):
     profile = request.user.profile
     message = profile.messages.get(id=pk)
+    if not message.is_read:
+        message.is_read = True
+        message.save()
     context = {"message": message}
     return render(request, "users/message.html", context)
