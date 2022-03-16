@@ -172,15 +172,16 @@ def view_message(request, pk):
 @login_required(login_url="login")
 def send_message(request, pk):
     profile = request.user.profile
-    recipient = profile.messages.get(id=pk)
+    recipient = Profile.objects.get(id=pk)
     form = MessageForm()
     if request.method == "POST":
         form = MessageForm(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
             message.sender_name = profile
+            message.recipient = recipient
             message.save()
             messages.success(request, "Message sent")
             return redirect("account")
-    context = {"form": form}
+    context = {"form": form, "recipient": recipient}
     return render(request, "users/message_form.html", context)
