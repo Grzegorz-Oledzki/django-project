@@ -57,8 +57,8 @@ class Message(models.Model):
     )
     sender_name = models.CharField(max_length=200, null=True, blank=True)
     email = models.EmailField(max_length=200, null=True, blank=True)
-    subject = models.CharField(max_length=200, null=True, blank=True)
-    body = models.TextField(max_length=400)
+    subject = models.CharField(max_length=200, null=True, blank=False)
+    body = models.TextField(max_length=400, blank=False)
     is_read = models.BooleanField(default=False, null=True)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(
