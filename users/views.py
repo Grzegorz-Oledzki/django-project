@@ -163,10 +163,11 @@ def inbox(request):
 def view_message(request, pk):
     profile = request.user.profile
     message = profile.messages.get(id=pk)
+    sender = message.sender
     if not message.is_read:
         message.is_read = True
         message.save()
-    context = {"message": message}
+    context = {"message": message, "sender": sender}
     return render(request, "users/message.html", context)
 
 
@@ -179,10 +180,11 @@ def send_message(request, pk):
         form = MessageForm(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
+            message.sender = sender
             message.sender_name = sender
             message.recipient = recipient
             message.save()
             messages.success(request, "Message sent")
-            return redirect("account")
+            return redirect("user-profile", pk=recipient.id)
     context = {"form": form, "recipient": recipient, "sender": sender}
     return render(request, "users/message_form.html", context)
