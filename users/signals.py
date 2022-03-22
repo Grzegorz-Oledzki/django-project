@@ -8,7 +8,7 @@ from django.conf import settings
 
 
 # @receiver(post_save, sender=Profile)
-def createProfile(sender, instance, created, **kwargs):
+def create_profile(sender, instance, created, **kwargs):
     if created:
         user = instance
         profile = Profile.objects.create(
@@ -19,7 +19,7 @@ def createProfile(sender, instance, created, **kwargs):
         send_mail(subject, message, settings.EMAIL_HOST_USER, [profile.email], fail_silently=False)
 
 
-def updateUser(sender, instance, created, **kwargs):
+def update_user(sender, instance, created, **kwargs):
     profile = instance
     user = profile.user
     if created == False:
@@ -29,11 +29,11 @@ def updateUser(sender, instance, created, **kwargs):
         user.save()
 
 
-def deleteUser(sender, instance, **kwargs):
+def delete_user(sender, instance, **kwargs):
     user = instance.user
     user.delete()
 
 
-post_save.connect(updateUser, sender=Profile)
-post_save.connect(createProfile, sender=User)
-post_delete.connect(deleteUser, sender=Profile)
+post_save.connect(update_user, sender=Profile)
+post_save.connect(create_profile, sender=User)
+post_delete.connect(delete_user, sender=Profile)
