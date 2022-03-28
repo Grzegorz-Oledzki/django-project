@@ -188,3 +188,15 @@ def send_message(request, pk):
             return redirect("user-profile", pk=recipient.id)
     context = {"form": form, "recipient": recipient, "sender": sender}
     return render(request, "users/message_form.html", context)
+
+@login_required(login_url="login")
+def delete_message(request, pk):
+    profile = request.user.profile
+    message = profile.messages.get(id=pk)
+    if request.method == "POST":
+        message.delete()
+        messages.success(request, "Message deleted")
+        return redirect("inbox")
+    context = {"profile": profile, "message": message}
+    return render(request, "users/delete_message.html", context)
+

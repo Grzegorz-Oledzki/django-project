@@ -12,6 +12,8 @@
           <div class="message__body">{{message.body|linebreaksbr}}
           </div>
       </div>
+      <a class="tag tag--pill tag--sub tag--lg" href="{% url 'delete-message' message.id %}">Delete message<i
+                  class="im im-x-mark-circle-o"></i></a>
       <a href="{% url 'send-message' sender.id %}" class="tag tag--pill tag--sub tag--lg">Send message to {{sender}}</a>
     </div>
   </main>

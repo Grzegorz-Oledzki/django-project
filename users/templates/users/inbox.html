@@ -18,10 +18,13 @@
           <span class="message__subject">{{message.subject}}</span>
           <span class="message__date">{{message.created}}</span>
         </a>
+        <a class="tag tag--pill tag--main settings__btn" href="{% url 'delete-message' message.id %}">Delete message<i
+                  class="im im-x-mark-circle-o"></i></a>
       </li>
       {% endfor %}
     </ul>
   </div>
+
 </main>
 
 {% endblock content %}
