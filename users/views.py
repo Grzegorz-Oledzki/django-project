@@ -189,6 +189,7 @@ def send_message(request, pk):
     context = {"form": form, "recipient": recipient, "sender": sender}
     return render(request, "users/message_form.html", context)
 
+
 @login_required(login_url="login")
 def delete_message(request, pk):
     profile = request.user.profile
@@ -199,4 +200,3 @@ def delete_message(request, pk):
         return redirect("inbox")
     context = {"profile": profile, "message": message}
     return render(request, "users/delete_message.html", context)
-
