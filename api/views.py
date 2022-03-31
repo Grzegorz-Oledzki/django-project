@@ -6,14 +6,12 @@ from api.serializers import PlayerSerializer
 from first_project.models import Player
 
 
-
 @api_view(["GET"])
 def get_routes(request):
     routes = [
         {"GET": "/api/players"},
         {"GET": "/api/players/id"},
         {"POST": "/api/players/id/vote"},
-
         {"POST": "/api/user/token"},
         {"POST": "/api/user/token/refresh"},
     ]
