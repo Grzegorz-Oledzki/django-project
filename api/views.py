@@ -30,3 +30,15 @@ def get_player(request, pk):
     players = Player.objects.get(id=pk)
     serializer = PlayerSerializer(players, many=False)
     return Response(serializer.data)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def project_vote(request, pk):
+    players = Player.objects.get(id=pk)
+    user = request.user.profile
+    data = request.data
+
+    print(data)
+    serializer = PlayerSerializer(players, many=False)
+    return Response(serializer.data)
