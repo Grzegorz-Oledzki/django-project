@@ -40,7 +40,7 @@ def project_vote(request, pk):
     data = request.data
     review, created = Review.objects.get_or_create(owner=user, player=player)
 
-    review.value = data['value']
+    review.value = data["value"]
     review.save()
     player.get_vote_count
     serializer = PlayerSerializer(player, many=False)
