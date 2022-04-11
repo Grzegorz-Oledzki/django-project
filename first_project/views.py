@@ -64,9 +64,13 @@ def update_player(request, pk):
     form = PlayerForm(instance=player)
 
     if request.method == "POST":
+        new_tags = request.POST.get('new_tags').replace(',', ' ').split()
         form = PlayerForm(request.POST, request.FILES, instance=player)
         if form.is_valid():
-            form.save()
+            player = form.save()
+            for tag in new_tags:
+                tag, created = Tag.objects.get_or_create(name=tag)
+                player.tags.add(tag)
             return redirect("account")
 
     context = {"form": form}
