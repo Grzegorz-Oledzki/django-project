@@ -43,6 +43,7 @@ def player(request, pk):
 
 @login_required(login_url="login")
 def create_player(request):
+    new_tags = request.POST.get('new_tags').replace(',', ' ').split()
     form = PlayerForm()
     profile = request.user.profile
     if request.method == "POST":
@@ -51,6 +52,9 @@ def create_player(request):
             player = form.save(commit=False)
             player.owner = profile
             player.save()
+            for tag in new_tags:
+                tag, created = Tag.objects.get_or_create(name=tag)
+                player.tags.add(tag)
             return redirect("account")
 
     context = {"form": form}
