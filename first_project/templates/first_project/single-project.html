@@ -8,11 +8,11 @@
         <div class="column column--1of3">
           <h3 class="singleProject__subtitle">Position</h3>
           <div class="singleProject__toolStack">
+            {% for tag in player.tags.all %}
             <span class="tag tag--pill tag--sub tag--lg">
-                {% for tag in player.tags.all %}
-              <small>{{tag}}</small>
+                    {{tag}}
             </span>
-                {% endfor %}
+                    {% endfor %}
           </div>
             {% if player.source_link %}
           <a class="singleProject__liveLink" href="#" target="_blank"><i class="im im-external-link"></i>Source Code
