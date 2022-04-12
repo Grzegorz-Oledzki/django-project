@@ -15,11 +15,11 @@
                     {% endfor %}
           </div>
             {% if player.source_link %}
-          <a class="singleProject__liveLink" href="#" target="_blank"><i class="im im-external-link"></i>Source Code
+          <a class="singleProject__liveLink" href="{{player.source_link}}" target="_blank"><i class="im im-external-link"></i>Source Code
           </a>
             {% endif %}
             {% if player.demo_link %}
-          <a class="singleProject__liveLink" href="#" target="_blank"><i class="im im-external-link"></i>Demo Code
+          <a class="singleProject__liveLink" href="{{player.demo_link}}" target="_blank"><i class="im im-external-link"></i>Demo Code
           </a>
             {% endif %}
         </div>

@@ -39,11 +39,11 @@
                     Feedback {{ player.vote_total }} Vote{{player.vote_total|pluralize:"s"}}
                   </p>
                   <div class="project__tags">
+                    {% for tag in player.tags.all %}
                     <span class="tag tag--pill tag--main">
-                     {% for tag in player.tags.all %}
-                      <small>{{tag}}</small>
-                      {% endfor %}
+                      {{tag}}
                     </span>
+                      {% endfor %}
                   </div>
                 </div>
               </a>
