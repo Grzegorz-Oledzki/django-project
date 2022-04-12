@@ -22,7 +22,7 @@ class Player(models.Model):
         return self.title
 
     class Meta:
-        ordering = ["-vote_ratio", "-vote_total", "title"]
+        ordering = ["-created"]
 
     @property
     def reviewers(self):
