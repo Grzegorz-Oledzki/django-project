@@ -11,7 +11,6 @@ class PlayerForm(ModelForm):
             "description",
             "demo_link",
             "source_link",
-            "tags",
             "featured_image",
         ]
         widgets = {

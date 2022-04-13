@@ -77,7 +77,7 @@ def update_player(request, pk):
                 player.tags.add(tag)
             return redirect("account")
 
-    context = {"form": form}
+    context = {"form": form, 'player': player}
     return render(request, "first_project/project_form.html", context)
 
 
