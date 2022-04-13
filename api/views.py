@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from api.serializers import PlayerSerializer
-from first_project.models import Player, Review
+from first_project.models import Player, Review, Tag
 
 
 @api_view(["GET"])
@@ -45,3 +45,11 @@ def project_vote(request, pk):
     player.get_vote_count
     serializer = PlayerSerializer(player, many=False)
     return Response(serializer.data)
+@api_view(['DELETE'])
+def remove_tag(request):
+    tagId = request.data['tag']
+    playerId = request.data['player']
+    player = Player.objects.get(id=playerId)
+    tag = Tag.objects.get(id=tagId)
+    player.tags.remove(tag)
+    return Response('Tag was deleted')
