@@ -45,11 +45,13 @@ def project_vote(request, pk):
     player.get_vote_count
     serializer = PlayerSerializer(player, many=False)
     return Response(serializer.data)
-@api_view(['DELETE'])
+
+
+@api_view(["DELETE"])
 def remove_tag(request):
-    tagId = request.data['tag']
-    playerId = request.data['player']
+    tagId = request.data["tag"]
+    playerId = request.data["player"]
     player = Player.objects.get(id=playerId)
     tag = Tag.objects.get(id=tagId)
     player.tags.remove(tag)
-    return Response('Tag was deleted')
+    return Response("Tag was deleted")

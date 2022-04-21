@@ -43,7 +43,7 @@ def player(request, pk):
 
 @login_required(login_url="login")
 def create_player(request):
-    new_tags = request.POST.get('new_tags').replace(',', ' ').split()
+    new_tags = request.POST.get("new_tags").replace(",", " ").split()
     form = PlayerForm()
     profile = request.user.profile
     if request.method == "POST":
@@ -68,7 +68,7 @@ def update_player(request, pk):
     form = PlayerForm(instance=player)
 
     if request.method == "POST":
-        new_tags = request.POST.get('new_tags').replace(',', ' ').split()
+        new_tags = request.POST.get("new_tags").replace(",", " ").split()
         form = PlayerForm(request.POST, request.FILES, instance=player)
         if form.is_valid():
             player = form.save()
@@ -77,7 +77,7 @@ def update_player(request, pk):
                 player.tags.add(tag)
             return redirect("account")
 
-    context = {"form": form, 'player': player}
+    context = {"form": form, "player": player}
     return render(request, "first_project/project_form.html", context)
 
 
