@@ -35,7 +35,7 @@ class Profile(models.Model):
         try:
             url = self.profile_image.url
         except:
-            url = 'http://127.0.0.1:8000/images/profile_images/user-default.png'
+            url = "http://127.0.0.1:8000/images/profile_images/user-default.png"
         return url
 
 
