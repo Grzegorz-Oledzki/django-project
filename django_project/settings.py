@@ -122,10 +122,10 @@ WSGI_APPLICATION = "django_project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "django_project",
+        "NAME": "grzes_db",
         "USER": 'grzes',
-        "PASSWORD": "grzes",
-        "HOST": "localhost",
+        "PASSWORD": "#",
+        "HOST": "database-1.c8xwyysae5xe.eu-west-1.rds.amazonaws.com",
         "PORT": "5432",
     }
 }
