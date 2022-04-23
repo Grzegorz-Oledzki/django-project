@@ -38,6 +38,9 @@ class Profile(models.Model):
             url = "https://grzesczes-bucket.s3.amazonaws.com/profile_images/user-default.png"
         return url
 
+    class Meta:
+        ordering = ["created"]
+
 
 class Skill(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
