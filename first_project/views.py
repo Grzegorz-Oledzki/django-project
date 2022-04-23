@@ -43,10 +43,10 @@ def player(request, pk):
 
 @login_required(login_url="login")
 def create_player(request):
-    new_tags = request.POST.get("new_tags").replace(",", " ").split()
     form = PlayerForm()
     profile = request.user.profile
     if request.method == "POST":
+        new_tags = request.POST.get("new_tags").replace(",", " ").split()
         form = PlayerForm(request.POST, request.FILES)
         if form.is_valid():
             player = form.save(commit=False)

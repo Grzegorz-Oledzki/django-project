@@ -34,7 +34,7 @@ class Player(models.Model):
         try:
             url = self.featured_image.url
         except:
-            url = "http://127.0.0.1:8000/images/default.jpg"
+            url = "https://grzesczes-bucket.s3.amazonaws.com/default.jpg"
         return url
 
     @property

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
+from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
+    'storages',
 ]
 
 REST_FRAMEWORK = {
@@ -124,7 +126,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "grzes_db",
         "USER": 'grzes',
-        "PASSWORD": "#",
+        "PASSWORD": config("PASSWORD"),
         "HOST": "database-1.c8xwyysae5xe.eu-west-1.rds.amazonaws.com",
         "PORT": "5432",
     }
@@ -197,3 +199,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_QUERYSTRING_AUTH = False
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('BUCKET')
+
