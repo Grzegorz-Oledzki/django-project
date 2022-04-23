@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-1tm%+uec^*%ih=mq)2hcu-(^33!$e)#+xy)&igxfq^wcgqx1(7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", 'grzes-django-app.herokuapp.com']
 
 
 # Application definition
@@ -202,8 +202,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+AWS_S3_FILE_OVERWRITE = False
 AWS_QUERYSTRING_AUTH = False
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = config('BUCKET')
 
+if os.getcwd() == '/app':
+    DEBUG = False
