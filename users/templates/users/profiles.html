@@ -35,7 +35,9 @@
                   <img class="avatar avatar--md" src={{profile.image_url}} alt="image" />
                   <div class="dev__meta">
                     <h3>{{ profile.user }}</h3> ({{ profile.name }})
+                    {% if profile.short_intro %}
                     <h5>{{ profile.short_intro|slice:'60' }}</h5>
+                    {% endif %}
                   </div>
                 </div>
                 <p class="dev__info">
