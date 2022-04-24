@@ -34,7 +34,6 @@ s3transfer==0.5.2
 six==1.16.0
 sqlparse==0.4.2
 terminaltables==3.1.10
-tomli==2.0.1
 typing_extensions==4.2.0
 urllib3==1.26.9
 whitenoise==5.3.0

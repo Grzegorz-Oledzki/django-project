@@ -10,7 +10,9 @@
             <div class="card__body dev">
               <img class="avatar avatar--xl" src="{{profile.image_url}}" />
               <h2 class="dev__name">{{ profile.user }}</h2>
+              {% if profile.short_intro %}
               <p class="dev__title">{{ profile.short_intro }}</p>
+              {% endif %}
               <p class="dev__location">Based in {{ profile.location }}</p>
               <ul class="dev__social">
                   {% if profile.social_github %}

@@ -62,11 +62,15 @@ def register_user(request):
 def profiles(request):
     profiles, search_query = search_profiles(request)
     results_on_page = 6
+    profile = request.user.profile
+    message_request = profile.messages.all()
+    unread_count = message_request.filter(is_read=False).count()
     custom_range, profiles = pagination_project(request, profiles, results_on_page)
     context = {
         "profiles": profiles,
         "custom_range": custom_range,
         "search_query": search_query,
+        "unread_count": unread_count,
     }
     return render(request, "users/profiles.html", context)
 
@@ -75,10 +79,14 @@ def user_profile(request, pk):
     profile = Profile.objects.get(id=pk)
     top_skills = profile.skill_set.exclude(description__exact="")
     other_skills = profile.skill_set.filter(description="")
+    profile_message = request.user.profile
+    message_request = profile_message.messages.all()
+    unread_count = message_request.filter(is_read=False).count()
     context = {
         "profile": profile,
         "top_skills": top_skills,
         "other_skills": other_skills,
+        "unread_count": unread_count,
     }
     return render(request, "users/user-profile.html", context)
 
@@ -88,7 +96,9 @@ def user_account(request):
     profile = request.user.profile
     skills = profile.skill_set.all()
     players = profile.player_set.all()
-    context = {"profile": profile, "skills": skills, "players": players}
+    message_request = profile.messages.all()
+    unread_count = message_request.filter(is_read=False).count()
+    context = {"profile": profile, "skills": skills, "players": players, "unread_count": unread_count}
     return render(request, "users/account.html", context)
 
 
@@ -200,3 +210,10 @@ def delete_message(request, pk):
         return redirect("inbox")
     context = {"profile": profile, "message": message}
     return render(request, "users/delete_message.html", context)
+
+def inbox_count(request):
+    profile = request.user.profile
+    message_request = profile.messages.all()
+    unread_count = message_request.filter(is_read=False).count()
+    context = {"message_request": message_request, "unread_count": unread_count}
+    return render(request, "main.html", context)
