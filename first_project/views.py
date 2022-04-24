@@ -9,14 +9,17 @@ from django.contrib import messages
 
 
 def players(request):
+    profile = request.user.profile
     players, search_query = search_players(request)
     results_on_page = 3
     custom_range, players = pagination_project(request, players, results_on_page)
-
+    message_request = profile.messages.all()
+    unread_count = message_request.filter(is_read=False).count()
     context = {
         "players": players,
         "search_query": search_query,
         "custom_range": custom_range,
+        "unread_count": unread_count,
     }
     return render(request, "first_project/projects.html", context)
 
@@ -24,6 +27,9 @@ def players(request):
 def player(request, pk):
     playerObj = Player.objects.get(id=pk)
     form = ReviewForm()
+    profile = request.user.profile
+    message_request = profile.messages.all()
+    unread_count = message_request.filter(is_read=False).count()
     if request.method == "POST":
         form = ReviewForm(request.POST)
         review = form.save(commit=False)
@@ -33,11 +39,11 @@ def player(request, pk):
         playerObj.get_vote_count
         messages.success(request, "Review added!")
         return redirect("player", pk=playerObj.id)
-
+    context = {"player": playerObj, "form": form, "unread_count": unread_count}
     return render(
         request,
         "first_project/single-project.html",
-        {"player": playerObj, "form": form},
+        context,
     )
 
 
