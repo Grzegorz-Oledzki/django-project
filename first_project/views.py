@@ -6,6 +6,7 @@ from first_project.forms import PlayerForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 from first_project.utils import search_players, pagination_project
 from django.contrib import messages
+from users.utils import unread_message
 
 
 def players(request):
@@ -16,11 +17,7 @@ def players(request):
         "players": players,
         "search_query": search_query,
         "custom_range": custom_range}
-    if request.user.is_authenticated:
-        profile = request.user.profile
-        message_request = profile.messages.all()
-        unread_count = message_request.filter(is_read=False).count()
-        context["unread_count"] = unread_count
+    unread_message(request, context)
     return render(request, "first_project/projects.html", context)
 
 
@@ -37,11 +34,7 @@ def player(request, pk):
         messages.success(request, "Review added!")
         return redirect("player", pk=playerObj.id)
     context = {"player": playerObj, "form": form}
-    if request.user.is_authenticated:
-        profile = request.user.profile
-        message_request = profile.messages.all()
-        unread_count = message_request.filter(is_read=False).count()
-        context["unread_count"] = unread_count
+    unread_message(request, context)
     return render(
         request,
         "first_project/single-project.html",
@@ -66,6 +59,7 @@ def create_player(request):
             return redirect("account")
 
     context = {"form": form}
+    unread_message(request, context)
     return render(request, "first_project/project_form.html", context)
 
 
@@ -86,6 +80,7 @@ def update_player(request, pk):
             return redirect("account")
 
     context = {"form": form, "player": player}
+    unread_message(request, context)
     return render(request, "first_project/project_form.html", context)
 
 
@@ -96,4 +91,5 @@ def delete_player(request, pk):
     if request.method == "POST":
         player.delete()
         return redirect("account")
+    unread_message(request, context)
     return render(request, "first_project/delete_obj.html", context)

@@ -6,7 +6,7 @@ from django.contrib import messages
 from users.models import Profile, Skill, Message
 from users.forms import CustomUserCreationForm, ProfileForm, SkillForm, MessageForm
 from django.contrib.auth.decorators import login_required
-from users.utils import search_profiles, pagination_project
+from users.utils import search_profiles, pagination_project, unread_message
 
 
 def login_user(request):
@@ -68,11 +68,7 @@ def profiles(request):
         "custom_range": custom_range,
         "search_query": search_query,
     }
-    if request.user.is_authenticated:
-        profile = request.user.profile
-        message_request = profile.messages.all()
-        unread_count = message_request.filter(is_read=False).count()
-        context["unread_count"] = unread_count
+    unread_message(request, context)
     return render(request, "users/profiles.html", context)
 
 
@@ -85,11 +81,7 @@ def user_profile(request, pk):
         "top_skills": top_skills,
         "other_skills": other_skills,
     }
-    if request.user.is_authenticated:
-        profile = request.user.profile
-        message_request = profile.messages.all()
-        unread_count = message_request.filter(is_read=False).count()
-        context["unread_count"] = unread_count
+    unread_message(request, context)
     return render(request, "users/user-profile.html", context)
 
 
@@ -99,10 +91,7 @@ def user_account(request):
     skills = profile.skill_set.all()
     players = profile.player_set.all()
     context = {"profile": profile, "skills": skills, "players": players}
-    if request.user.is_authenticated:
-        message_request = profile.messages.all()
-        unread_count = message_request.filter(is_read=False).count()
-        context["unread_count"] = unread_count
+    unread_message(request, context)
     return render(request, "users/account.html", context)
 
 
@@ -118,6 +107,7 @@ def edit_account(request):
 
             return redirect("account")
     context = {"form": form}
+    unread_message(request, context)
     return render(request, "users/profile_form.html", context)
 
 
@@ -134,6 +124,7 @@ def create_skill(request):
             messages.success(request, "Skill created")
             return redirect("account")
     context = {"form": form}
+    unread_message(request, context)
     return render(request, "users/skill_form.html", context)
 
 
@@ -149,6 +140,7 @@ def update_skill(request, pk):
             messages.success(request, "Skill updated")
             return redirect("account")
     context = {"form": form}
+    unread_message(request, context)
     return render(request, "users/skill_form.html", context)
 
 
@@ -161,6 +153,7 @@ def delete_skill(request, pk):
         messages.success(request, "Skill deleted")
         return redirect("account")
     context = {"skill": skill}
+    unread_message(request, context)
     return render(request, "users/delete_skill.html", context)
 
 
@@ -182,6 +175,7 @@ def view_message(request, pk):
         message.is_read = True
         message.save()
     context = {"message": message, "sender": sender}
+    unread_message(request, context)
     return render(request, "users/message.html", context)
 
 
@@ -201,6 +195,7 @@ def send_message(request, pk):
             messages.success(request, "Message sent")
             return redirect("user-profile", pk=recipient.id)
     context = {"form": form, "recipient": recipient, "sender": sender}
+    unread_message(request, context)
     return render(request, "users/message_form.html", context)
 
 
@@ -213,12 +208,5 @@ def delete_message(request, pk):
         messages.success(request, "Message deleted")
         return redirect("inbox")
     context = {"profile": profile, "message": message}
+    unread_message(request, context)
     return render(request, "users/delete_message.html", context)
-
-
-def inbox_count(request):
-    profile = request.user.profile
-    message_request = profile.messages.all()
-    unread_count = message_request.filter(is_read=False).count()
-    context = {"message_request": message_request, "unread_count": unread_count}
-    return render(request, "main.html", context)
