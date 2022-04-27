@@ -46,6 +46,7 @@ def search_profiles(request):
 
     return profiles, search_query
 
+
 def unread_message(request, context):
     if request.user.is_authenticated:
         profile = request.user.profile

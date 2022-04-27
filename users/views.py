@@ -169,12 +169,15 @@ def inbox(request):
 @login_required(login_url="login")
 def view_message(request, pk):
     profile = request.user.profile
-    message = profile.messages.get(id=pk)
-    sender = message.sender
-    if not message.is_read:
-        message.is_read = True
-        message.save()
-    context = {"message": message, "sender": sender}
+    message_request = profile.messages.all()
+    this_message = profile.messages.get(id=pk)
+    sender = this_message.sender
+    sender_message_request = sender.messages.all()
+
+    if not this_message.is_read:
+        this_message.is_read = True
+        this_message.save()
+    context = {"profile": profile, "this_message": this_message, "sender": sender, "message_request": message_request, "sender_message_request": sender_message_request}
     unread_message(request, context)
     return render(request, "users/message.html", context)
 
